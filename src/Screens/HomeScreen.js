@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Features from '../components/Features';
@@ -10,57 +9,53 @@ import { dummyMessages } from '../constaints';
 export default function HomeScreen() {
     const [messages, setMessages] = useState(dummyMessages);
   return (
-    <View style={styles.header1}>
-      <SafeAreaView style={styles.header2}>
+    <View className='flex-1 bg-white'>
+      <SafeAreaView className='flex-1 flex mx-5'>
        {/* Bot Icon */}
-       <View style={styles.class1}>
+       <View className='flex-row justify-center'>
         <Image 
-        style={styles.Image1}
+        style={{height:hp(15), width:hp(15)}}
         source={require('../../assets/images/Welcome1.png')} />
-       </View>
-
+       </View >
+           
        {/* features \\ messages */}
        {
+        
         messages.length>0? (
-            <View style={styles.class2}>
-               <Text style={styles.Text1}>
+            <View className='space-y-2 flex-1'>
+               <Text style={{fontSize: wp(5)}} className='text-gray-700 font-semibold'>
                  Assistant
                </Text>
-               <View style={styles.class3}>
-
-               </View>
-            </View>
-        ) : (
-            <Features/>
-        )
-       }
-      </SafeAreaView>
-      <ScrollView
+               <View style={{height: hp(58)}}  className='bg-neutral-200  rounded-3xl p-4'>
+               <ScrollView
          bounces={false}
-         style={styles.scview}
+         class='space-y-4'
          showsVerticalScrollIndicator={false}
       >
-        {
+          
+          {
             messages.map((messages, index)=> {
                 if (messages.role=='assistant'){
                     if (messages.content.includes('https')){
                         // its an ai image
                         return (
-                            <View key={index} style={styles.class4}>
-                          <View style={styles.class7}>
-                             <Image
-                             source={{uri: messages.content}}
-                             style={styles.Image1}
-                             />
-                          </View>
-                        </View>
+                            <View key={index} class='flex-row justify-end'>
+                              <View style={{width: wp(70)}} class='bg-white rounded-xl p-2 rounded-tr-none'>
+                                <Text >
+                                    {messages.content}
+                                </Text>
+                                <Text >
+                                    om kushwaha
+                                </Text>
+                              </View>
+                            </View>
                         )
                     } else {
                         //Text response
                         return (
-                            <View key={index} >
-                              <View style={styles.class6}>
-                                <Text style={styles.Text2}>
+                            <View key={index} className='flex-row justify-end'>
+                              <View style={{width: wp(70)}} className='bg-white rounded-xl p-2 rounded-tr-none'>
+                                <Text >
                                     {messages.content}
                                 </Text>
                               </View>
@@ -70,9 +65,9 @@ export default function HomeScreen() {
                 } else {
                     // userinput
                     return (
-                        <View key={index} style={styles.class4}>
-                          <View style={styles.class5}>
-                            <Text style={styles.Text2}>
+                        <View key={index} className='flex-row justify-end'>
+                          <View style={{width: wp(70)}} className='bg-white rounded-xl p-2 rounded-tr-none'>
+                            <Text >
                                 {messages.content}
                             </Text>
                           </View>
@@ -84,83 +79,16 @@ export default function HomeScreen() {
         }
 
       </ScrollView>
+               </View>
+            </View>
+        ) : (
+            <Features/>
+        )
+       }
+      </SafeAreaView>
+    
 
 
     </View>
   )
 }
-const styles = StyleSheet.create({
-    header1:{
-        flex:1,
-        backgroundColor:'white',
-    },
-    header2:{
-        flex:1,
-        flexDirection:'column',
-        margin:5,
-    },
-    class1:{
-        flexDirection:'row',
-        justifyContent:'center',
-    },
-    Image1:{
-        height: hp(15),
-        width: hp(15),
-
-    },
-    class2:{
-         marginHorizontal:10,
-         flex:1,
-    },
-    Text1:{
-        color:'grey',
-        fontWeight:'600',
-        margin:1,
-        fontSize:wp(5),
-    },
-    class3:{
-        height:hp(58),
-        backgroundColor:"lightgrey",
-        borderRadius:27,
-        
-    },
-    scview:{
-        margintop: 4,
-        
-    },
-    Text2:{
-        fontSize:17,
-        
-    },
-    class4:{
-       flexDirection:'row',
-       justifyContent:'flex-end',
-    },
-    class5:{
-       
-        backgroundColor:'white',
-        borderRadius:9,
-        padding:7,
-        borderTopRightRadius:'none'
-    },
-    class6:{
-        
-        backgroundColor:'lightgreen',
-        borderRadius:9,
-        padding:7,
-        borderTopLeftRadius:'none'
-    },
-    class7:{
-        
-        backgroundColor:'lightgreen',
-        borderRadius:9,
-        padding:2,
-        borderTopLeftRadius:'none'
-    },
-    Image1:{
-        borderRadius:8,
-        resizeMode:'contain',
-        height:wp(60),
-        width:wp(60),
-    },
-})
