@@ -44,7 +44,7 @@ export default function HomeScreen() {
                                 <Text >
                                     {messages.content}
                                 </Text>
-                                <Text >
+                                <Text  >
                                     om kushwaha
                                 </Text>
                               </View>
